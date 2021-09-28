@@ -1,0 +1,66 @@
+#!/bin/bash
+
+version=1.0.0
+
+# Show help menu & exit program
+if [ $1 == "-h" ]; then
+    help=`< /home/$USER/.local/share/sytdl/help.txt`
+    IFS='%'
+    echo -e $help
+    exit 1
+else if [ $1 == "-v" ]; then
+    echo "SYTDL version: $version"
+fi
+
+# Source necessary functions
+source "/home/$USER/.local/share/sytdl/handle_args.sh"
+
+# Setup variables
+args=("$@")
+custom=$(handleArgs args "-c")
+debug=$(handleArgs args "-d")
+extract=$(handleArgs args "-x")
+
+# Go to the right fucking folder
+cd "/"
+
+# Extract audio
+if [[ $extract == 0 ]]; then
+
+    # Take a custom name
+    if [[ $custom == 0 ]]; then
+        log="[sytdl] Extracting audio with custom title: $2"
+        command="youtube-dl $1 -x --audio-format=mp3 -o /home/$USER/$2.%(ext)s"
+    
+    # Take the name given by the API
+    else
+        log="[sytdl] Extracting audio with auto title."
+        command="youtube-dl $1 -x --audio-format=mp3 -o /home/$USER/$2/%(title)s.%(ext)s"
+    fi
+
+# Do not extract audio
+else
+
+    # Take a custom name
+    if [[ $custom == 0 ]]; then
+        log="[sytdl] Downloading with custom title: $2"
+        command="youtube-dl $1 -o /home/$USER/$2.%(ext)s"
+        
+    # Take the name given by the API
+    else
+        log="[sytdl] Downloading with auto title."
+        command="youtube-dl $1 -o /home/$USER/$2/%(title)s.%(ext)s"
+    fi
+fi
+
+# If debug is on, print the command to execute
+if [[ $debug == 0 ]]; then
+    echo "[sytdl] Executing: $command"
+fi
+
+# Print the log message saved earlier on
+echo $log
+
+# Execute the command
+$command
+echo "[sytdl] Completed download."

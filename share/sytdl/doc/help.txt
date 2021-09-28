@@ -1,0 +1,39 @@
+
+==============================SYTDL===============================
+
+This is a program for making the argument syntax of youtube-dl a
+little shorter. It provides four commonplace uses of youtube-dl
+for the user:
+- downloading a video, using the title of said video as the file-
+  name,
+- downloading a video with a custom filename,
+- extracting audio from a video, using the title of said video as
+  the filename,
+- extracting audio with a custom filename.
+
+The basic format of a command looks like this:
+
+    sytdl [video url] [output path]
+
+SYTDL will automatically navigate to your home folder, so your out-
+put path should account for this. Additionally, do not include
+surrounding slashes; only ones between directories. For example:
+
+    INCORRECT: sytdl [video url] /home/user/music/youtube/
+    CORRECT:   sytdl [video url] music/youtube
+
+There are three optional arguments available for SYTDL. They are:
+
+    -c: allows the user to enter a custom filename
+    -d: activates debug mode; will print the youtube-dl command
+        to be executed
+    -x: extract the audio from the video, deleting the original
+        video file upon completion
+
+These optional arguments may be applied after the mandatory argu-
+ments, in any order, as in the following format:
+
+    sytdl [video url] [output path] [optional arguments]
+    
+If you invoke "-c", your output path must include the filename,
+but not the file extension.

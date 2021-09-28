@@ -1,0 +1,5 @@
+# Short YouTube Downloader (SYTDL)
+
+**SYTDL**, an acronym for **Short YouTube Downloader**, is a program for making the argument syntax of youtube-dl a little shorter. It provides four commonplace uses of youtube-dl for the user.
+
+I intend to add cases for more options and a command to switch between using youtube-dl, youtube-dlc, and youtube-dlp.

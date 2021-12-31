@@ -1,6 +1,6 @@
 #!/bin/bash
 
-version=1.0.0
+version=1.1.0
 
 # Show help menu & exit program
 if [ $1 == "-h" ]; then
@@ -31,12 +31,12 @@ if [[ $extract == 0 ]]; then
     # Take a custom name
     if [[ $custom == 0 ]]; then
         log="[sytdl] Extracting audio with custom title: $2"
-        command="youtube-dl $1 -x --audio-format=mp3 -o /home/$USER/$2.%(ext)s"
+        command="yt-dlp -x --audio-format=mp3 -o '/home/$USER/$2.%(ext)s' $1"
     
     # Take the name given by the API
     else
         log="[sytdl] Extracting audio with auto title."
-        command="youtube-dl $1 -x --audio-format=mp3 -o /home/$USER/$2/%(title)s.%(ext)s"
+        command="yt-dlp -x --audio-format=mp3 -o '/home/$USER/$2/%(title)s.%(ext)s' $1"
     fi
 
 # Do not extract audio
@@ -45,12 +45,12 @@ else
     # Take a custom name
     if [[ $custom == 0 ]]; then
         log="[sytdl] Downloading with custom title: $2"
-        command="youtube-dl $1 -o /home/$USER/$2.%(ext)s"
+        command="yt-dlp -o '/home/$USER/$2.%(ext)s' $1"
         
     # Take the name given by the API
     else
         log="[sytdl] Downloading with auto title."
-        command="youtube-dl $1 -o /home/$USER/$2/%(title)s.%(ext)s"
+        command="yt-dlp -o '/home/$USER/$2/%(title)s.%(ext)s' $1"
     fi
 fi
 

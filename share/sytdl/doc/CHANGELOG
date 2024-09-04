@@ -11,6 +11,7 @@
             Reformat for better consistency with common Unix help documents
             Use standard syntax for program usage
             Provide explanation for all available arguments
+        Added installer
         Removed now unused handle_args.sh file
         Exit and warn if yt-dlp is not installed
         Improved code structure

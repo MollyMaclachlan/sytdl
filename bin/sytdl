@@ -1,67 +1,88 @@
 #!/bin/bash
 
-version=1.1.0
+USAGE="Usage: sytdl [-Dhvx] [-d destination] [-f filename] [-s source]"
+VERSION="1.2.0"
 
-# Show help menu & exit program
-if [ $1 == "-h" ]; then
-    help=`< /home/$USER/.local/share/sytdl/help.txt`
-    IFS='%'
-    echo -e $help
-    exit 1
-else if [ $1 == "-v" ]; then
-    echo "SYTDL version: $version"
+while getopts ':d:Df:hs:vx' OPTION; do
+    case "$OPTION" in
+        d)
+            DESTINATION="$OPTARG"
+            echo "[sytdl] Custom destination given: $DESTINATION"
+            ;;
+        D)
+            DEBUG=0
+            ;;
+        f)
+            FILENAME="$OPTARG"
+            echo "[sytdl] Custom filename given: $FILENAME"
+            ;;
+        h)
+            HELP=`< /home/$USER/.local/share/sytdl/help.txt`
+            IFS='%'
+            echo -e $HELP
+            exit 1
+            ;;
+        v)
+            echo "sytdl $VERSION"
+            exit 1
+            ;;
+        s)
+            SOURCE="$OPTARG"
+            ;;
+        x)
+            EXTRACT=0
+            ;;
+        ?)
+            echo $USAGE
+            exit 1
+            ;;
+    esac
+done
+
+YT_DLP_LOCATION=`whereis yt-dlp`
+if [[ -z ${YT_DLP_LOCATION:8} ]]; then
+    echo "[sytdl] FATAL: yt-dlp is not installed"
     exit 1
 fi
 
-# Source necessary functions
-source "/home/$USER/.local/share/sytdl/handle_args.sh"
+if [[ -n "$SOURCE" ]]; then
 
-# Setup variables
-args=("$@")
-custom=$(handleArgs args "-c")
-debug=$(handleArgs args "-d")
-extract=$(handleArgs args "-x")
-
-# Go to the right fucking folder
-cd "/"
-
-# Extract audio
-if [[ $extract == 0 ]]; then
-
-    # Take a custom name
-    if [[ $custom == 0 ]]; then
-        log="[sytdl] Extracting audio with custom title: $2"
-        command="yt-dlp -x --audio-format=mp3 -o '/home/$USER/$2.%(ext)s' $1"
-    
-    # Take the name given by the API
-    else
-        log="[sytdl] Extracting audio with auto title."
-        command="yt-dlp -x --audio-format=mp3 -o '/home/$USER/$2/%(title)s.%(ext)s' $1"
+    # Navigate to custom location if given; otherwise, save in PWD
+    if [[ -z "$DESTINATION" ]]; then
+        DESTINATION=$PWD
     fi
 
-# Do not extract audio
+    COMMAND="yt-dlp"
+    LOG="[sytdl]"
+
+    if [[ -n "$EXTRACT" ]]; then
+        COMMAND="${COMMAND} -x --audio-format=mp3"
+        LOG="${LOG} Extracting audio"
+    else
+        LOG="${LOG} Downloading"
+    fi
+
+    if [[ -n "$filename" ]]; then
+        COMMAND="${COMMAND} -o $DESTINATION/$FILENAME.%(ext)s $SOURCE"
+        LOG="${LOG} with filename '$FILENAME' at destination: $DESTINATION"
+    else
+        COMMAND="${COMMAND} -o $DESTINATION/%(title)s.%(ext)s $SOURCE"
+        LOG="${LOG} with auto filename at destination: $DESTINATION"
+    fi
+
+    # If debug is on, print the command to execute
+    if [[ $DEBUG == 0 ]]; then
+        echo "[sytdl] Executing: $COMMAND"
+    fi
+
+    # Print the log message saved earlier on
+    echo $LOG
+
+    # Execute the command
+    $COMMAND
+    echo "[sytdl] Completed download"
+
+# Source was not given
 else
-
-    # Take a custom name
-    if [[ $custom == 0 ]]; then
-        log="[sytdl] Downloading with custom title: $2"
-        command="yt-dlp -o '/home/$USER/$2.%(ext)s' $1"
-        
-    # Take the name given by the API
-    else
-        log="[sytdl] Downloading with auto title."
-        command="yt-dlp -o '/home/$USER/$2/%(title)s.%(ext)s' $1"
-    fi
+    echo $USAGE
 fi
-
-# If debug is on, print the command to execute
-if [[ $debug == 0 ]]; then
-    echo "[sytdl] Executing: $command"
-fi
-
-# Print the log message saved earlier on
-echo $log
-
-# Execute the command
-$command
-echo "[sytdl] Completed download."

@@ -1,0 +1,36 @@
+1.2.0 (2024-09-04)
+    Changes
+        Restructured command-line syntax
+        Better argument processing:
+            Require -s before URL of video source
+            Require full file paths for custom destinations instead of assuming subfolder of home folder
+            Explicitly use present working directory if no custom destination is given
+            Split custom destination and filename into separate arguments
+            Print usage if required argument missing or unknown argument given
+        Re-wrote help documentation:
+            Reformat for better consistency with common Unix help documents
+            Use standard syntax for program usage
+            Provide explanation for all available arguments
+        Removed now unused handle_args.sh file
+        Exit and warn if yt-dlp is not installed
+        Improved code structure
+    Contributers
+        Murdo Maclachlan
+
+1.1.0 (2021-12-31)
+    Changes
+        Switched from youtube-dl to yt-dlp
+    Contributers
+        Murdo Maclachlan
+
+1.0.1 (2021-10-02)
+    Changes
+        Exit after printing version number
+    Contributers
+        Murdo Maclachlan
+
+1.0.0 (2021-09-28)
+    Changes
+        Initial release
+    Contributers
+        Murdo Maclachlan

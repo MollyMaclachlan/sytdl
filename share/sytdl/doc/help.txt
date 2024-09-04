@@ -1,39 +1,23 @@
+Usage:
+    sytdl [-Dhvx] [-d destination] [-f filename] [-s source]
 
-==============================SYTDL===============================
+This is a program for making the argument syntax of yt-dlp a little simpler.
+It provides four commonplaces uses of yt-dlp for the user.
 
-This is a program for making the argument syntax of youtube-dl a
-little shorter. It provides four commonplace uses of youtube-dl
-for the user:
-- downloading a video, using the title of said video as the file-
-  name,
-- downloading a video with a custom filename,
-- extracting audio from a video, using the title of said video as
-  the filename,
-- extracting audio with a custom filename.
+Mandatory arguments:
+    -s <source>         the URL source of the video to download
 
-The basic format of a command looks like this:
+Optional arguments (with values):
+    -d <destination>    location to save the downloaded file; if not given,
+                        the present working directory will be used
+    -f <filename>       name for the downloaded file; if not given, the title
+                        of the source video will be used
 
-    sytdl [video url] [output path]
+Optional arguments (without values):
+    -D                  enable debug logging
+    -h                  display this help and exit
+    -v                  display version number and exit
+    -x                  extract and save audio from source, discarding video
 
-SYTDL will automatically navigate to your home folder, so your out-
-put path should account for this. Additionally, do not include
-surrounding slashes; only ones between directories. For example:
-
-    INCORRECT: sytdl [video url] /home/user/music/youtube/
-    CORRECT:   sytdl [video url] music/youtube
-
-There are three optional arguments available for SYTDL. They are:
-
-    -c: allows the user to enter a custom filename
-    -d: activates debug mode; will print the youtube-dl command
-        to be executed
-    -x: extract the audio from the video, deleting the original
-        video file upon completion
-
-These optional arguments may be applied after the mandatory argu-
-ments, in any order, as in the following format:
-
-    sytdl [video url] [output path] [optional arguments]
-    
-If you invoke "-c", your output path must include the filename,
-but not the file extension.
+sytdl relies on yt-dlp. If yt-dlp is not present in any folder defined by
+the $PATH variable, sytdl will not run.

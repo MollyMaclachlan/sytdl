@@ -6,7 +6,7 @@
 
 echo "Installing sytdl..."
 
-echo "Copying functions to /.local/share/..."
+echo "Copying documentation to /.local/share/..."
 
 cp -r share/sytdl /home/$USER/.local/share
 

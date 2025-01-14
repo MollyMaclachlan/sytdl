@@ -2,6 +2,7 @@ Unreleased
     Changes
         Fixed '-f' argument having no effect due to incorrect variable name
         Clarified requirements and installation in the README file
+        Moved documentation to top level of share/sytdl folder
         Updated author name
     Contributers
         Molly Maclachlan

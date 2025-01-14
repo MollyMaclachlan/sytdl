@@ -1,6 +1,7 @@
 Unreleased
     Changes
         Fixed '-f' argument having no effect due to incorrect variable name
+        Clarified requirements and installation in the README file
         Updated author name
     Contributers
         Molly Maclachlan

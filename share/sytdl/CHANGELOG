@@ -1,4 +1,4 @@
-Unreleased
+1.2.1 (2025-01-14)
     Changes
         Fixed '-f' argument having no effect due to incorrect variable name
         Clarified requirements and installation in the README file

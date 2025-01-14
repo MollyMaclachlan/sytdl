@@ -1,6 +1,7 @@
 Unreleased
     Changes
         Fixed '-f' argument having no effect due to incorrect variable name
+        Updated author name
     Contributers
         Molly Maclachlan
 
@@ -22,22 +23,22 @@ Unreleased
         Exit and warn if yt-dlp is not installed
         Improved code structure
     Contributers
-        Murdo Maclachlan
+        Molly Maclachlan
 
 1.1.0 (2021-12-31)
     Changes
         Switched from youtube-dl to yt-dlp
     Contributers
-        Murdo Maclachlan
+        Molly Maclachlan
 
 1.0.1 (2021-10-02)
     Changes
         Exit after printing version number
     Contributers
-        Murdo Maclachlan
+        Molly Maclachlan
 
 1.0.0 (2021-09-28)
     Changes
         Initial release
     Contributers
-        Murdo Maclachlan
+        Molly Maclachlan

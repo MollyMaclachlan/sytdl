@@ -62,7 +62,7 @@ if [[ -n "$SOURCE" ]]; then
         LOG="${LOG} Downloading"
     fi
 
-    if [[ -n "$filename" ]]; then
+    if [[ -n "$FILENAME" ]]; then
         COMMAND="${COMMAND} -o $DESTINATION/$FILENAME.%(ext)s $SOURCE"
         LOG="${LOG} with filename '$FILENAME' at destination: $DESTINATION"
     else

@@ -1,3 +1,9 @@
+Unreleased
+    Changes
+        Fixed '-f' argument having no effect due to incorrect variable name
+    Contributers
+        Molly Maclachlan
+
 1.2.0 (2024-09-04)
     Changes
         Restructured command-line syntax
